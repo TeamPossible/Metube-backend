@@ -31,6 +31,17 @@ describe('alchemy-app routes', () => {
   });
 });
 
+it('creates a new user', async() => {
+  const res = await request(app).post('/api/v1/users').send(mockUser);
+  const {  email } = mockUser;
+
+  expect(res.body).toEqual({
+    id: expect.any(String),
+    email,
+  });
+});
+
+
 it('returns the current user', async () => {
   const agent = request.agent(app);
 
@@ -44,10 +55,10 @@ it('returns the current user', async () => {
   };
 
   const res = await agent
-      .post('/api/v1/users/sessions')
-      .send({ email, password
-      });
+    .post('/api/v1/users/sessions')
+    .send({ email, password
+    });
 
-    expect(res.body).toEqual(expected);
-    expect(res.status).toEqual(200);
-})
+  expect(res.body).toEqual(expected);
+  expect(res.status).toEqual(200);
+});
