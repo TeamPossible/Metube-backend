@@ -42,7 +42,9 @@ describe('alchemy-app routes', () => {
   });
 
 
-  it.skip('returns the current user', async () => {
+
+ 
+  it('returns the current user', async () => {
     const agent = request.agent(app);
 
     const user = await UserService.create({ ...mockUser, });
@@ -61,6 +63,25 @@ describe('alchemy-app routes', () => {
 
     expect(res.body).toEqual(expected);
     expect(res.status).toEqual(200);
+  });
+
+  it('should delte cookie from user object', async () => {
+    await UserService.create({ ...mockUser, });
+
+    const agent = request.agent(app);
+
+    await agent
+      .post('/api/v1/users/sessions')
+      .send({ ...mockUser });
+
+    const res = await agent.delete('/api/v1/users');
+
+    expect(res.body).toEqual({
+      success: true,
+      message: 'Successfully signed out!',
+    });
+    expect(res.status).toEqual(200);
+
   });
 
 });
