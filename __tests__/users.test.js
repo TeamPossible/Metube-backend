@@ -7,18 +7,7 @@ const UserService = require('../lib/services/UserService');
 const mockUser = {
   email: 'test@example.com',
   password: '12345',
-};
-
-const registerAndLogin = async (userProps = {}) => {
-  const password = userProps.password ?? mockUser.password;
-
-  const agent = request.agent(app);
-  
-  const user = await UserService.create({ ...mockUser, ...userProps });
-
-  const { email } = user;
-  await agent.post('/api/v1/users/sessions').send({ email, password });
-  return [agent, user];
+  username: 'bob'
 };
 
 describe('alchemy-app routes', () => {
@@ -30,20 +19,17 @@ describe('alchemy-app routes', () => {
     pool.end();
   });
 
-
   it('creates a new user', async() => {
     const res = await request(app).post('/api/v1/users').send(mockUser);
-    const {  email } = mockUser;
+    const {  email, username } = mockUser;
 
     expect(res.body).toEqual({
       id: expect.any(String),
       email,
+      username
     });
   });
 
-
-
- 
   it('returns the current user', async () => {
     const agent = request.agent(app);
 
@@ -65,7 +51,7 @@ describe('alchemy-app routes', () => {
     expect(res.status).toEqual(200);
   });
 
-  it('should delte cookie from user object', async () => {
+  it('should delete cookie from user object', async () => {
     await UserService.create({ ...mockUser, });
 
     const agent = request.agent(app);
