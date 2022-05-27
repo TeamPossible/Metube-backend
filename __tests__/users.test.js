@@ -30,10 +30,6 @@ describe('alchemy-app routes', () => {
     });
   });
 
-<<<<<<< HEAD:__tests__/app.test.js
-
-=======
->>>>>>> 00fc408be130f95221380b77368cf3363827d2c0:__tests__/users.test.js
   it('returns the current user', async () => {
     const agent = request.agent(app);
 
@@ -54,11 +50,7 @@ describe('alchemy-app routes', () => {
     expect(res.status).toEqual(200);
   });
 
-<<<<<<< HEAD:__tests__/app.test.js
-  it('should delte cookie from user object', async () => {
-=======
   it('should delete cookie from user object', async () => {
->>>>>>> 00fc408be130f95221380b77368cf3363827d2c0:__tests__/users.test.js
     await UserService.create({ ...mockUser, });
 
     const agent = request.agent(app);
