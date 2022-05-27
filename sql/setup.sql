@@ -16,6 +16,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE description (
+user_id uuid NOT NULL,
 title TEXT NOT NULL,
 description TEXT,
 video_id BIGINT NOT NULL 
