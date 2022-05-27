@@ -16,7 +16,7 @@ const registerAndLogin = async (userProps = {}) => {
   const username = 'bob';
   const agent = request.agent(app);
   
-  const user = UserService.create({ ...mockUser, ...userProps });
+  const user = await UserService.create({ ...mockUser, ...userProps });
   
   const { email } = user;
   await agent.post('/api/v1/users/sessions').send({ email, password, username });
@@ -43,7 +43,7 @@ describe('github-oauth routes', () => {
         description:'this video is the trailer for the new thor movie premiering july 8th, 2022',
         video_id: 1
       });
-    console.log(response.body);
+
     expect(response.body).toEqual({
       user_id:expect.any(String),
       title: 'Thor Love and Thunder',
