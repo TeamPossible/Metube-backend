@@ -1,6 +1,6 @@
 -- Use this file to define your SQL tables
 -- The SQL in this file will be executed when you run `npm run setup-db`
-DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS users, description, comments CASCADE;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
@@ -15,3 +15,16 @@ CREATE TABLE users (
     bio TEXT
 );
 
+CREATE TABLE description (
+user_id uuid NOT NULL,
+title TEXT NOT NULL,
+description TEXT,
+video_id BIGINT NOT NULL 
+);
+
+CREATE TABLE comments (
+user_id uuid NOT NULL,
+comment TEXT NOT NULL,
+created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+video_id BIGINT NOT NULL
+);
