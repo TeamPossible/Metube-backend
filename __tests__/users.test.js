@@ -40,6 +40,11 @@ describe('alchemy-app routes', () => {
 
     const expected = {
       message: 'Signed in successfully!',
+      profile: {
+        email: 'test@example.com',
+        id: expect.any(String),
+        username: 'bob',
+      },
     };
 
     const res = await agent
