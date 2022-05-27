@@ -30,9 +30,6 @@ describe('alchemy-app routes', () => {
     });
   });
 
-
-
- 
   it('returns the current user', async () => {
     const agent = request.agent(app);
 
@@ -49,7 +46,6 @@ describe('alchemy-app routes', () => {
       .post('/api/v1/users/sessions')
       .send({ email, password
       });
-
     expect(res.body).toEqual(expected);
     expect(res.status).toEqual(200);
   });
