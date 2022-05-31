@@ -1,6 +1,6 @@
 -- Use this file to define your SQL tables
 -- The SQL in this file will be executed when you run `npm run setup-db`
-DROP TABLE IF EXISTS users, description, comments, likes CASCADE;
+DROP TABLE IF EXISTS users, description, comments, likes, videos CASCADE;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
@@ -33,4 +33,9 @@ CREATE TABLE likes (
 user_id uuid NOT NULL,
 is_liked BOOLEAN NOT NULL,
 video_id BIGINT NOT NULL
+);
+
+CREATE TABLE videos (
+  user_id uuid NOT NULL,
+  video_id BIGINT NOT NULL
 );
