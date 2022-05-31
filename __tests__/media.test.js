@@ -71,9 +71,9 @@ describe('github-oauth routes', () => {
     });
   });
 
-  it('sets a like to true or false', async () => {
+  it('sets a like to true', async () => {
     const [agent] = await registerAndLogin(mockUser);
-
+    
     const response = agent
       .post('/api/v1/like')
       .send({
@@ -81,8 +81,7 @@ describe('github-oauth routes', () => {
         is_liked: true,
         video_id: '1'
       });
-      
-    expect(response.body).toEqual({
+    expect(response._data).toEqual({
       user_id: expect.any(String),
       is_liked: true,
       video_id: '1'
