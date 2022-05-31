@@ -89,11 +89,11 @@ describe('github-oauth routes', () => {
     });
   });
 
-  it('should be able to get a like by id', async () => {
+  it('should be able to update a like by id', async () => {
     const [agent] = await registerAndLogin(mockUser);
     const like = await Like.insert({ user_id: '9bd2afa6-1ad7-4b06-9733-74577063994e', is_liked: true, video_id: '1' });
     const response = agent
-      .post(`/api/v1/like/${like.user_id}`)
+      .patch(`/api/v1/like/${like.user_id}`)
       .send({
         user_id: '9bd2afa6-1ad7-4b06-9733-74577063994e',
         is_liked: true,
