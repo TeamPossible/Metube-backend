@@ -30,6 +30,9 @@ describe('alchemy-app routes', () => {
     });
   });
 
+
+
+ 
   it('returns the current user', async () => {
     const agent = request.agent(app);
 
@@ -40,13 +43,17 @@ describe('alchemy-app routes', () => {
 
     const expected = {
       message: 'Signed in successfully!',
+      profile: {
+        email: 'test@example.com',
+        id: expect.any(String),
+        username: 'bob',
+      },
     };
 
     const res = await agent
       .post('/api/v1/users/sessions')
       .send({ email, password
       });
-
     expect(res.body).toEqual(expected);
     expect(res.status).toEqual(200);
   });
