@@ -29,8 +29,8 @@ created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 video_id BIGINT NOT NULL
 );
 
--- CREATE TABLE likes (
---   user_id uuid NOT NULL,
---   like BOOLEAN,
---   video_id BIGINT NOT NULL
--- );
+CREATE TABLE likes (
+user_id uuid NOT NULL,
+is_liked BOOLEAN,
+video_id BIGINT NOT NULL
+);
