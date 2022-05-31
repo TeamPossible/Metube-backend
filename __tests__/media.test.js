@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const UserService = require('../lib/services/UserService');
+const Like = require('../lib/models/Like');
 
 
 const mockUser = {
@@ -88,4 +89,24 @@ describe('github-oauth routes', () => {
     });
   });
 
-});
+  it('should be able to get a like by id', async () => {
+    const [agent] = await registerAndLogin(mockUser);
+    const like = await Like.insert({ user_id: '9bd2afa6-1ad7-4b06-9733-74577063994e', is_liked: true, video_id: '1' });
+    const response = agent
+      .post(`/api/v1/like/${like.user_id}`)
+      .send({
+        user_id: '9bd2afa6-1ad7-4b06-9733-74577063994e',
+        is_liked: true,
+        video_id: '1'
+      });
+
+    const expected = {
+      user_id: expect.any(String),
+      is_liked: true,
+      video_id: '1'
+    };
+
+    expect(response._data).toEqual(expected);
+    expect(await Like.getById(like.user_id)).toEqual(expected);
+  });
+}); 
