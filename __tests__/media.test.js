@@ -71,4 +71,22 @@ describe('github-oauth routes', () => {
     });
   });
 
+  it('sets a like to true or false', async () => {
+    const [agent] = await registerAndLogin(mockUser);
+
+    const response = agent
+      .post('/api/v1/like')
+      .send({
+        user_id: '9bd2afa6-1ad7-4b06-9733-74577063994e',
+        is_liked: true,
+        video_id: '1'
+      });
+      
+    expect(response.body).toEqual({
+      user_id: expect.any(String),
+      is_liked: true,
+      video_id: '1'
+    });
+  });
+
 });

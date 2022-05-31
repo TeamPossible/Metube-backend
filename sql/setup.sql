@@ -31,6 +31,6 @@ video_id BIGINT NOT NULL
 
 CREATE TABLE likes (
 user_id uuid NOT NULL,
-is_liked BOOLEAN,
+is_liked BOOLEAN NOT NULL,
 video_id BIGINT NOT NULL
 );
