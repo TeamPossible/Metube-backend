@@ -75,14 +75,18 @@ describe('github-oauth routes', () => {
   it('sets a like to true', async () => {
     const [agent] = await registerAndLogin(mockUser);
     
+
     const response = await agent
+
       .post('/api/v1/like')
       .send({
         user_id: '9bd2afa6-1ad7-4b06-9733-74577063994e',
         is_liked: true,
         video_id: '1'
       });
+
     expect(response.body).toEqual({
+
       user_id: expect.any(String),
       is_liked: true,
       video_id: '1'
@@ -92,7 +96,9 @@ describe('github-oauth routes', () => {
   it('should be able to update a like by id', async () => {
     const [agent] = await registerAndLogin(mockUser);
     const like = await Like.insert({ user_id: '9bd2afa6-1ad7-4b06-9733-74577063994e', is_liked: true, video_id: '1' });
+
     const response = await agent
+
       .patch(`/api/v1/like/${like.user_id}`)
       .send({
         user_id: '9bd2afa6-1ad7-4b06-9733-74577063994e',
@@ -106,7 +112,9 @@ describe('github-oauth routes', () => {
       video_id: '1'
     };
 
+
     expect(response.body).toEqual(expected);
+
     expect(await Like.getById(like.user_id)).toEqual(expected);
   });
 }); 
