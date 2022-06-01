@@ -16,22 +16,23 @@ CREATE TABLE users (
 );
 
 CREATE TABLE videos (
-user_id uuid NOT NULL,
+user_id uuid NOT NULL REFERENCES users(id),
 title TEXT NOT NULL,
 description TEXT,
-video_id BIGINT NOT NULL 
+video_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+video_url TEXT NOT NULL
 );
 
 CREATE TABLE comments (
-user_id uuid NOT NULL,
+user_id uuid NOT NULL REFERENCES users(id),
 comment TEXT NOT NULL,
 created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-video_id BIGINT NOT NULL
+video_id BIGINT REFERENCES videos(video_id)
 );
 
 CREATE TABLE likes (
-user_id uuid NOT NULL,
+user_id uuid NOT NULL REFERENCES users(id),
 is_liked BOOLEAN NOT NULL,
-video_id BIGINT NOT NULL
+video_id BIGINT REFERENCES videos(video_id)
 );
 

@@ -54,8 +54,7 @@ describe('alchemy-app routes', () => {
       .post('/api/v1/users/sessions')
       .send({ email, password
       });
-    console.log('****res.body', res.body);
-    console.log('****expected', expected);
+   
     expect(res.body).toEqual(expected);
     expect(res.status).toEqual(200);
   });
