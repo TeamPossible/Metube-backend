@@ -5,7 +5,7 @@ const app = require('../lib/app');
 const UserService = require('../lib/services/UserService');
 const Like = require('../lib/models/Like');
 const Media = require('../lib/models/Media');
-
+const Comment = require('../lib/models/Comment');
 
 const mockUser = {
   email: 'test@example.com',
@@ -130,6 +130,29 @@ describe('github-oauth routes', () => {
     expect(response.body).toEqual(expected);
 
     expect(await Like.getById(like.user_id)).toEqual(expected);
+  });
+
+  it('we should be able to return all of the video data', async () => {
+    const [agent, user] = await registerAndLogin(mockUser);
+    await fakeUpload(agent, user);
+    await Like.insert({ user_id: user.id, is_liked: true, video_id: '1' });
+    await Comment.insert({ user_id: user.id, comment: 'I cant wait for this movie', video_id: '1' });
+    const response = await agent
+      .get('/api/v1/media');
+
+    const expected = {
+      user_id: expect.any(String),
+      title: 'Thor Love and Thunder',
+      video_id: expect.any(String),
+      description: 'this video is the trailer for the new thor movie premiering july 8th, 2022',
+      comment: 'I cant wait for this movie',
+      is_liked: true,
+      video_url: 'https://quwukbuqxqtapoxrimqd.supabase.in/storage/v1/object/public/videos/9bd2afa6-1ad7-4b06-9733-74577063994e/thorTrailer.mp4',
+      created_at: expect.any(String)
+    };
+  
+    expect(response.body).toEqual(expected);
+  
   });
 
 });
