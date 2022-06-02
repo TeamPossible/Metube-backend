@@ -7,7 +7,7 @@ const UserService = require('../lib/services/UserService');
 const mockUser = {
   email: 'test@example.com',
   password: '12345',
-  username: 'bob'
+  username: 'Bob',
 };
 
 describe('alchemy-app routes', () => {
@@ -19,26 +19,23 @@ describe('alchemy-app routes', () => {
     pool.end();
   });
 
-  it('creates a new user', async() => {
+  it('creates a new user', async () => {
     const res = await request(app).post('/api/v1/users').send(mockUser);
-    const {  email, username } = mockUser;
+    const { email, username } = mockUser;
 
     expect(res.body).toEqual({
       id: expect.any(String),
       email,
-      username
+      username,
     });
   });
 
-
-
- 
   it('returns the current user', async () => {
     const agent = request.agent(app);
 
-    const user = await UserService.create({ ...mockUser, });
+    const user = await UserService.create({ ...mockUser });
 
-    const { email } = user;
+    const email = mockUser.email;
     const password = mockUser.password;
 
     const expected = {
@@ -46,27 +43,24 @@ describe('alchemy-app routes', () => {
       profile: {
         email: 'test@example.com',
         id: expect.any(String),
-        username: 'bob',
+        username: 'Bob',
       },
     };
 
     const res = await agent
       .post('/api/v1/users/sessions')
-      .send({ email, password
-      });
-   
+      .send({ email, password });
+
     expect(res.body).toEqual(expected);
     expect(res.status).toEqual(200);
   });
 
   it('should delete cookie from user object', async () => {
-    await UserService.create({ ...mockUser, });
+    await UserService.create({ ...mockUser });
 
     const agent = request.agent(app);
 
-    await agent
-      .post('/api/v1/users/sessions')
-      .send({ ...mockUser });
+    await agent.post('/api/v1/users/sessions').send({ ...mockUser });
 
     const res = await agent.delete('/api/v1/users');
 
@@ -75,7 +69,5 @@ describe('alchemy-app routes', () => {
       message: 'Successfully signed out!',
     });
     expect(res.status).toEqual(200);
-
   });
-
 });
