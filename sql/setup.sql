@@ -27,7 +27,8 @@ CREATE TABLE comments (
 user_id uuid NOT NULL REFERENCES users(id),
 comment TEXT NOT NULL,
 created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-video_id BIGINT REFERENCES videos(video_id)
+video_id BIGINT REFERENCES videos(video_id),
+username TEXT NOT NULL REFERENCES users(username)
 );
 
 CREATE TABLE likes (

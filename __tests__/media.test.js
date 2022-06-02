@@ -82,12 +82,14 @@ describe('github-oauth routes', () => {
       user_id: user.id,
       comment: 'I cant wait for this movie',
       video_id: '1',
+      username: 'bob',
     });
 
     expect(response.body).toEqual({
       user_id: expect.any(String),
       comment: 'I cant wait for this movie',
       video_id: expect.any(String),
+      username: 'bob',
     });
   });
 
@@ -182,6 +184,7 @@ describe('github-oauth routes', () => {
       user_id: user.id,
       comment: 'I cant wait for this movie',
       video_id: '1',
+      username: 'bob',
     });
     const response = await agent.get('/api/v1/media');
 
@@ -189,6 +192,7 @@ describe('github-oauth routes', () => {
       user_id: expect.any(String),
       title: 'Thor Love and Thunder',
       video_id: expect.any(String),
+      username: 'bob',
       description:
         'this video is the trailer for the new thor movie premiering july 8th, 2022',
       comment: 'I cant wait for this movie',
