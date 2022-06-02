@@ -134,6 +134,46 @@ describe('github-oauth routes', () => {
     expect(await Like.getById(like.user_id)).toEqual(expected);
   });
 
+  it('Should return a list of videos', async () => {
+    const [agent, user] = await registerAndLogin(mockUser);
+    await fakeUpload(agent, user);
+    const response = await agent.get('/api/v1/media/videos');
+
+    const expected = [
+      {
+        description:
+          'this video is the trailer for the new thor movie premiering july 8th, 2022',
+        title: 'Thor Love and Thunder',
+        user_id: expect.any(String),
+        video_id: '1',
+        video_url:
+          'https://quwukbuqxqtapoxrimqd.supabase.in/storage/v1/object/public/videos/9bd2afa6-1ad7-4b06-9733-74577063994e/thorTrailer.mp4',
+      },
+    ];
+
+    expect(response.body).toEqual(expected);
+  });
+
+  it('Should return a single video selected by id', async () => {
+    const [agent, user] = await registerAndLogin(mockUser);
+    const upload = await fakeUpload(agent, user);
+    const response = await agent.get(
+      `/api/v1/media/videos/${upload._body.video_id}`
+    );
+
+    const expected = {
+      description:
+        'this video is the trailer for the new thor movie premiering july 8th, 2022',
+      title: 'Thor Love and Thunder',
+      user_id: expect.any(String),
+      video_id: '1',
+      video_url:
+        'https://quwukbuqxqtapoxrimqd.supabase.in/storage/v1/object/public/videos/9bd2afa6-1ad7-4b06-9733-74577063994e/thorTrailer.mp4',
+    };
+
+    expect(response.body).toEqual(expected);
+  });
+
   it('we should be able to return all of the video data', async () => {
     const [agent, user] = await registerAndLogin(mockUser);
     await fakeUpload(agent, user);
