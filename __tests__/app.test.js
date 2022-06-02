@@ -7,13 +7,16 @@ const UserService = require('../lib/services/UserService');
 const mockUser = {
   email: 'test@example.com',
   password: '12345',
+
   username: 'Bob',
+
 };
 
 const registerAndLogin = async (userProps = {}) => {
   const password = userProps.password ?? mockUser.password;
 
   const agent = request.agent(app);
+
 
   const user = await UserService.create({ ...mockUser, ...userProps });
 
@@ -47,6 +50,7 @@ describe('alchemy-app routes', () => {
 
     const user = await UserService.create({ ...mockUser });
 
+
     const { email } = user;
     const password = mockUser.password;
 
@@ -57,6 +61,7 @@ describe('alchemy-app routes', () => {
     const res = await agent
       .post('/api/v1/users/sessions')
       .send({ email, password });
+
 
     expect(res.body).toEqual(expected);
     expect(res.status).toEqual(200);
