@@ -19,7 +19,7 @@ describe('alchemy-app routes', () => {
     pool.end();
   });
 
-  it('creates a new user', async () => {
+  it.skip('creates a new user', async () => {
     const res = await request(app).post('/api/v1/users').send(mockUser);
     const { email, username } = mockUser;
 
@@ -30,7 +30,7 @@ describe('alchemy-app routes', () => {
     });
   });
 
-  it('returns the current user', async () => {
+  it.skip('returns the current user', async () => {
     const agent = request.agent(app);
 
     const user = await UserService.create({ ...mockUser });
@@ -55,7 +55,7 @@ describe('alchemy-app routes', () => {
     expect(res.status).toEqual(200);
   });
 
-  it('should delete cookie from user object', async () => {
+  it.skip('should delete cookie from user object', async () => {
     await UserService.create({ ...mockUser });
 
     const agent = request.agent(app);
