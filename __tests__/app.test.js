@@ -9,6 +9,7 @@ const mockUser = {
   password: '12345',
 
   username: 'Bob',
+
 };
 
 const registerAndLogin = async (userProps = {}) => {
@@ -58,7 +59,7 @@ describe('alchemy-app routes', () => {
     const res = await agent
       .post('/api/v1/users/sessions')
       .send({ email, password });
-
+    
     expect(res.body).toEqual(expected);
     expect(res.status).toEqual(200);
   });
