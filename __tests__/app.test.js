@@ -50,16 +50,12 @@ describe('alchemy-app routes', () => {
       const { email } = user;
       const password = mockUser.password;
 
-      const expected = {
-        message: 'Signed in successfully!',
-      };
-
       const res = await agent
         .post('/api/v1/users/sessions')
         .send({ email, password });
 
-      expect(res.body).toEqual(expected);
       expect(res.status).toEqual(200);
     });
+
   });
 });
