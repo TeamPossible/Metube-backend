@@ -33,7 +33,7 @@ describe('alchemy-app routes', () => {
     pool.end();
   });
 
-  it('creates a new user', async () => {
+  it.skip('creates a new user', async () => {
     const res = await request(app).post('/api/v1/users').send(mockUser);
     const { email } = mockUser;
 
