@@ -7,6 +7,7 @@ const UserService = require('../lib/services/UserService');
 const mockUser = {
   email: 'test@example.com',
   password: '12345',
+
   username: 'Bob',
 };
 
